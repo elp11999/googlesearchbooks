@@ -10,13 +10,13 @@ import React, { Component } from "react";
 // Import the API library
 import API from "../utils/API";
 
-
 import '../App.css';
 
 // Inline CSS styles
 const styles = {
   container: {
     marginTop: 50,
+    marginBottom: 10,
     borderStyle: 'solid',
     borderRadius: 5,
     borderWidth: 2,
@@ -28,7 +28,6 @@ const styles = {
     fontWeight: 500
   },
   image : {
-    display: 'block',
     float: 'left',
     marginRight: 5
   },
@@ -46,8 +45,15 @@ const styles = {
     marginTop: 25,
     marginLeft: 10
   },
+  ul: {
+    padding: 0
+  },
   li: {
     listStyle: 'none'
+  },
+  hr: {
+    borderWidth: 2,
+    borderColor: "grey"
   }
 };
 
@@ -63,9 +69,11 @@ class SearchBooks extends Component {
       books: []
   };
 
-  loadBooks = () => {
+  loadBooks = (query) => {
     API.getBooks("packers")
       .then(res => {
+        for (let i = 0; i < res.data.items.length; i++)
+          res.data.items[i].volumeInfo._bookId = i; 
         this.setState({ books: res.data});
         this.setState({ bookCount: res.data.items.length});
       })
@@ -78,22 +86,20 @@ class SearchBooks extends Component {
   }
 
   handleSubmit = (event) => { 
-    event.preventDefault();   
-    console.log('A name was submitted: ' + this.state.searchValue);
-    this.loadBooks();
+    event.preventDefault();  
+    this.loadBooks(this.state.searchValue);
+  }
+
+  handleSave = (id) => {   
+    console.log("handleSave=" + id);
+  }
+
+  handleView = (id) => { 
+    console.log("handleView=" + id);
   }
 
   // Function to construct Login page of the UI
   render() {
-    let id = 1;
-
-    if (this.state.bookCount > 0) {
-      console.log(this.state.bookCount);
-      for (let i = 0; i < this.state.books.items.length; i++) {
-        console.log(this.state.books.items[i].volumeInfo);
-      }
-    }
-
     return (
       <div>
         <div className="container" style={ styles.container }>
@@ -107,18 +113,18 @@ class SearchBooks extends Component {
             {this.state.bookCount ? (
               <div>                
                 <p><span style={styles.header}>Search results</span></p>
-                <ul>
+                <ul style={styles.ul}>
                   {this.state.books.items.map(book => (
-                    <li key={id++} style={ styles.li }>
-                      <hr />
+                    <li key={book.volumeInfo._bookId} style={ styles.li }>
+                      <hr style={ styles.hr } />
                       <p><span style={ styles.title }>{book.volumeInfo.title}</span></p>
                       <p><span style={ styles.author }>Written by {book.volumeInfo.authors[0]}</span></p>
                       <div className="cfix">
                         <img style={ styles.image } src={book.volumeInfo.imageLinks.thumbnail} alt="thumbnail"></img>
                         <p><span style={ styles.description }>{book.volumeInfo.description}</span></p>
                       </div>
-                      <input className="btn btn-primary" type="submit" value="View" style={styles.button}/>
-                      <input className="btn btn-primary" type="submit" value="Save" style={styles.button}/>
+                      <input className="btn btn-primary" type="submit" value="View" style={styles.button} onClick={() => this.handleView(book.volumeInfo._bookId)}/>
+                      <input className="btn btn-primary" type="submit" value="Save" style={styles.button} onClick={() => this.handleSave(book.volumeInfo._bookId)}/>
                     </li>
                   ))}
                 </ul>
