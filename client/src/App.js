@@ -5,6 +5,8 @@ import SaveBooks from './pages/SaveBooks';
 import SearchBooks from './pages/SearchBooks';
 import NoMatch from './pages/NoMatch';
 
+import './App.css';
+
 function App() {
   return (
     <Router>
@@ -12,7 +14,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={SearchBooks} />
-          <Route exact path="/save" component={SaveBooks} />
+          <Route exact path="/saved" component={SaveBooks} />
           <Route exact path="/search" component={SearchBooks} />
           <Route component={NoMatch} />
         </Switch>

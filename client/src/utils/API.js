@@ -8,9 +8,9 @@ export default {
     let queryString = GoogleApi + "?q=" + query.replace(" ", "+");
     return axios.get(queryString);
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
+  // Get books from database
+  getBook: function() {
+    return axios.get("/api/books/");
   },
   // Deletes the book with the given id
   deleteBook: function(id) {

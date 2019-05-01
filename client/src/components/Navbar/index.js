@@ -14,7 +14,7 @@ import './styles.css';
 function NavBar(props) {
     //console.log(props);
     return (
-        <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+        <nav className="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
             <a className="navbar-brand" href="/"> 
                 <img id="nav-bar-image" alt="logo" src="/google.jpg"></img>
                 <span className="navbar-bar-text">Book Application</span>
@@ -28,7 +28,7 @@ function NavBar(props) {
                         <a className="nav-link" href="/search">Search</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/save">Save</a>
+                        <a className="nav-link" href="/saved">Saved</a>
                     </li>
                 </ul>
             </div>
