@@ -37,9 +37,16 @@ const styles = {
     fontSize: 30,
     fontWeight: 500
   },
+  statusmessage: {
+    marginTop: 10,
+    float: 'left',
+    fontSize: 30,
+    color: 'red',
+    fontWeight: 700,
+    textAlign: "center"
+  },
   button: {
     float: 'right',
-    marginTop: 25,
     marginLeft: 10
   },
   ul: {
@@ -55,6 +62,7 @@ const styles = {
 class SearchBooks extends Component {
   state = {
       searchValue: '',
+      message: '',
       books: []
   };
 
@@ -102,13 +110,16 @@ class SearchBooks extends Component {
 
   handleChange = (event) => {
     event.preventDefault();
-    this.setState({searchValue: event.target.value});
+    this.setState({searchValue: event.target.value});    
+    this.setState({message: ""});
   }
 
   handleSubmit = (event) => { 
     event.preventDefault();
-    if (this.state.searchValue.length > 0)  
+    if (this.state.searchValue.length > 0)
       this.loadBooks(this.state.searchValue);
+    else
+      this.setState({message: "Enter a book name!!!"});
   }
 
   // Function to handle the save button
@@ -143,9 +154,11 @@ class SearchBooks extends Component {
     return (
       <div>>
         <div className="topcontainer container" style={ styles.topcontainer }>
-          <p><span style={styles.header}>Search for book</span></p>
+          <p><span style={styles.header}>Search for a book</span></p>
           <div className="form form-group cfix">
             <input type="text" className="form-control" value={this.state.value} onChange={this.handleChange}></input>
+                          
+            <p><span style={styles.statusmessage}>{this.state.message}</span></p>
             <input className="btn btn-primary" type="submit" value="Search" style={styles.button} onClick={this.handleSubmit}/>
           </div>
         </div>
