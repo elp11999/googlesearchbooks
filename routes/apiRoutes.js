@@ -10,6 +10,9 @@
 // Load Mongoose database schemas
 const db = require("../models");
 
+// Load Path library
+var path = require("path");
+
 // Express routes
 module.exports = function(app) {
 
