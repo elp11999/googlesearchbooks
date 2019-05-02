@@ -21,7 +21,7 @@ const styles = {
     borderStyle: 'solid',
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: 'grey',
+    borderColor: 'darkslategray',
     paddingTop: 5,
   },
   container: {
@@ -30,7 +30,7 @@ const styles = {
     borderStyle: 'solid',
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: 'grey',
+    borderColor: 'darkslategray',
     paddingTop: 5,
   },
   header: {
@@ -55,18 +55,47 @@ const styles = {
 class SearchBooks extends Component {
   state = {
       searchValue: '',
-      bookCount:  0,
       books: []
   };
 
   loadBooks = (query) => {
     API.getBooks(query)
       .then(res => {
-        console.log(res);
-        for (let i = 0; i < res.data.items.length; i++)
-          res.data.items[i].volumeInfo._bookId = i; 
-        this.setState({ books: res.data});
-        this.setState({ bookCount: res.data.items.length});
+        let books = [];
+        if (res.data.items) {
+          for (let i = 0; i < res.data.items.length; i++) {
+
+            // Check for duplicate id values
+            let book = books.find((element) => { 
+              return element.id === res.data.items[i].id; 
+            });
+            if (book)
+              continue;
+                          
+            // Make sure we have a id
+            if (!res.data.items[i].id)
+              continue;  
+            // Make sure we have a title
+            if (!res.data.items[i].volumeInfo.title)
+              continue;
+            // Make sure we have a description
+            if (!res.data.items[i].volumeInfo.description)
+              continue;                            
+            // Make sure we have an author
+            if (!res.data.items[i].volumeInfo.authors)
+              continue;
+            // Make sure we have a image  
+            if (!res.data.items[i].volumeInfo.imageLinks)
+              continue;
+            // Make sure we have a link  
+            if (!res.data.items[i].volumeInfo.infoLink)
+              continue;
+              
+            // Looks good so add the book object
+            books.push(res.data.items[i]);
+          } 
+        }
+        this.setState({ books: books});
       })
       .catch(err => console.log(err));
   }
@@ -77,23 +106,30 @@ class SearchBooks extends Component {
   }
 
   handleSubmit = (event) => { 
-    event.preventDefault();  
-    this.loadBooks(this.state.searchValue);
+    event.preventDefault();
+    if (this.state.searchValue.length > 0)  
+      this.loadBooks(this.state.searchValue);
   }
 
   // Function to handle the save button
-  handleSave = (id) => { 
+  handleSave = (id) => {
+
+    // Find the book
+    let book = this.state.books.find((element) => { 
+      return element.id === id; 
+    });
+    if (!book)
+      return;
 
     // Crete book object to save to database
     const bookInfo = {
-      id: this.state.books.items[id].id,
-      author: this.state.books.items[id].volumeInfo.authors[0],
-      description: this.state.books.items[id].volumeInfo.description,
-      image: this.state.books.items[id].volumeInfo.imageLinks.thumbnail,
-      link: this.state.books.items[id].volumeInfo.infoLink,
-      title: this.state.books.items[id].volumeInfo.title
+      id: book.id,
+      author: book.volumeInfo.authors[0],
+      description: book.volumeInfo.description,
+      image: book.volumeInfo.imageLinks.thumbnail,
+      link: book.volumeInfo.infoLink,
+      title: book.volumeInfo.title
     }
-    console.log(bookInfo);
 
     // Save book to database
     API.saveBook(bookInfo)
@@ -114,19 +150,19 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="container" style={ styles.container }>
-            {this.state.bookCount ? (
+            {this.state.books.length ? (
               <div>                
                 <p><span style={styles.header}>Search results</span></p>
                 <ul style={styles.ul}>
-                  {this.state.books.items.map(book => (
-                   <Book key={book.volumeInfo._bookId}
+                  {this.state.books.map(book => (
+                   <Book key={book.id}
                          title={book.volumeInfo.title}
                          author={book.volumeInfo.authors[0]}
                          description={book.volumeInfo.description}
                          image={book.volumeInfo.imageLinks.thumbnail}
                          link={book.volumeInfo.infoLink}
                          buttonText={"Save"}
-                         onSave={() => this.handleSave(book.volumeInfo._bookId)}
+                         onSave={() => this.handleSave(book.id)}
                    />
                   ))}
                 </ul>

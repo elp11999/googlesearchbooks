@@ -21,7 +21,7 @@ const styles = {
     borderStyle: 'solid',
     borderRadius: 5,
     borderWidth: 2,
-    borderColor: 'grey',
+    borderColor: 'gdarkslategrayrey',
     paddingTop: 5,
   },
   header: {
@@ -58,7 +58,6 @@ class SaveBooks extends Component {
 
   // Function to handle the delete button
   handleDelete = (id) => { 
-    console.log(id);    
 
     // Delete book frome database
     API.deleteBook(id)

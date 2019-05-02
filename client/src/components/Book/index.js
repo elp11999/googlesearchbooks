@@ -33,7 +33,7 @@ const styles = {
   },
   hr: {
     borderWidth: 2,
-    borderColor: "grey"
+    borderColor: "darkslategray"
   }
 };
 
