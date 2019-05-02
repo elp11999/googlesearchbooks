@@ -11,7 +11,7 @@
 // "View" the book, bringing them to the book on Google Books, or "Delete" a book,
 // removing it from the Mongo database.
 //
-// server.js - Entry point to the WebScrape application
+// server.js - Entry point to the Google Search Book application
 //
 
 // Load Express libray
