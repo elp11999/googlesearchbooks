@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.84576519.chunk.css",
-    "main.js": "/static/js/main.05e3e9c1.chunk.js",
-    "main.js.map": "/static/js/main.05e3e9c1.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
-    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
-    "static/js/2.9153a2ba.chunk.js": "/static/js/2.9153a2ba.chunk.js",
-    "static/js/2.9153a2ba.chunk.js.map": "/static/js/2.9153a2ba.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.2bc15ab3cae1731ab3ce7d6c98fa03f4.js": "/precache-manifest.2bc15ab3cae1731ab3ce7d6c98fa03f4.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.84576519.chunk.css.map": "/static/css/main.84576519.chunk.css.map"
+    "main.css": "C:/Program Files/Git/googlesearchbooks/static/css/main.84576519.chunk.css",
+    "main.js": "C:/Program Files/Git/googlesearchbooks/static/js/main.05e3e9c1.chunk.js",
+    "main.js.map": "C:/Program Files/Git/googlesearchbooks/static/js/main.05e3e9c1.chunk.js.map",
+    "runtime~main.js": "C:/Program Files/Git/googlesearchbooks/static/js/runtime~main.07b8879b.js",
+    "runtime~main.js.map": "C:/Program Files/Git/googlesearchbooks/static/js/runtime~main.07b8879b.js.map",
+    "static/js/2.9153a2ba.chunk.js": "C:/Program Files/Git/googlesearchbooks/static/js/2.9153a2ba.chunk.js",
+    "static/js/2.9153a2ba.chunk.js.map": "C:/Program Files/Git/googlesearchbooks/static/js/2.9153a2ba.chunk.js.map",
+    "index.html": "C:/Program Files/Git/googlesearchbooks/index.html",
+    "precache-manifest.adc2258780409e943ea58fc2e3503860.js": "C:/Program Files/Git/googlesearchbooks/precache-manifest.adc2258780409e943ea58fc2e3503860.js",
+    "service-worker.js": "C:/Program Files/Git/googlesearchbooks/service-worker.js",
+    "static/css/main.84576519.chunk.css.map": "C:/Program Files/Git/googlesearchbooks/static/css/main.84576519.chunk.css.map"
   }
 }
